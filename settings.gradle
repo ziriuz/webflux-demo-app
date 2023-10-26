@@ -1,0 +1,13 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}
+
+rootProject.name = 'webflux-demo-app'
+include 'app-webflux'
+include 'app-webmvc'
+include 'app-component-test'
+include 'app-performance-test'
+include 'app-downstream-mock'

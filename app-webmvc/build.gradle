@@ -1,0 +1,9 @@
+
+group = 'dev.ziriuz.webflux.demo'
+version = '0.0.1-SNAPSHOT'
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation "com.github.javafaker:javafaker:$javaFakerVersion"
+}

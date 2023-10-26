@@ -1,0 +1,1 @@
+docker build -t dev.ziriuz/webmvc-demo-app .

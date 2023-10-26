@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+
+  webflux-demo-downstream-mock:
+    image: dev.ziriuz/webflux-demo-downstream-mock:latest
+    ports:
+      - "9000:9000"
+    environment:
+      JAVA_OPTS: "-Dreactor.netty.ioWorkerCount=16"
+    networks:
+      - back-tier
+
+  webflux-demo-app:
+    image: dev.ziriuz/webflux-demo-app:latest
+    ports:
+      - "8080:8080"
+    environment:
+      JAVA_OPTS: "-Dreactor.netty.ioWorkerCount=16 -Ddownstream.service.url=http://webflux-demo-downstream-mock:9000"
+    networks:
+      - back-tier
+
+  webmvc-demo-app:
+    image: dev.ziriuz/webmvc-demo-app:latest
+    ports:
+      - "8083:8083"
+    environment:
+      JAVA_OPTS: "-Dserver.tomcat.threads.max=200 -Ddownstream.service.url=http://webflux-demo-downstream-mock:9000"
+    networks:
+      - back-tier
+
+networks:
+  back-tier:

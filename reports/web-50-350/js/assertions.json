@@ -1,0 +1,10 @@
+{
+  "simulation": "dev.ziriuz.gatling.GetCustomerDetailsSimulation",
+  "simulationId": "getcustomerdetailssimulation-20231022222516272",
+  "start": 1698013517068,
+  "description": "Web from 50 to 350 ups",
+  "scenarios": ["get customer details API test"],
+  "assertions": [
+
+  ]
+}

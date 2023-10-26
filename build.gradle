@@ -1,0 +1,54 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version "$springBootVersion"
+	id 'io.spring.dependency-management' version "$springDependencyManagementVersion"
+}
+
+group = 'dev.ziriuz.webflux.demo'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '17'
+}
+
+repositories {
+	mavenCentral()
+}
+
+tasks.named("bootJar") {
+	enabled = false
+}
+
+allprojects {
+	apply plugin: 'java'
+	apply plugin: "org.springframework.boot"
+	apply plugin: 'io.spring.dependency-management'
+
+	repositories {
+		mavenCentral()
+	}
+
+	dependencies {
+		testImplementation 'org.springframework.boot:spring-boot-starter-test'
+		testImplementation 'io.projectreactor:reactor-test'
+		testImplementation "io.projectreactor.tools:blockhound-junit-platform:$blockhoundVersion"
+		testImplementation "org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion"
+		testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion"
+
+		compileOnly "org.projectlombok:lombok"
+		annotationProcessor "org.projectlombok:lombok"
+
+	}
+
+	tasks.named('test') {
+		useJUnitPlatform()
+	}
+	tasks.withType(Test).all {
+		if (JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_17)) {
+			//to fix BlockHound issue https://github.com/reactor/BlockHound/issues/33
+			jvmArgs += [
+					"-XX:+AllowRedefinitionToAddDeleteMethods"
+			]
+		}
+	}
+}
